@@ -10,7 +10,7 @@ interface ITagsTableProps {
 
 export function TagsTable({ tags }: ITagsTableProps): React.JSX.Element {
   return (
-    <div className="overflow-hidden rounded-xl border border-border bg-white shadow-sm">
+    <div className="overflow-hidden rounded-xl border border-border bg-background shadow-sm">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[24rem] border-collapse table-auto text-left">
           <thead>

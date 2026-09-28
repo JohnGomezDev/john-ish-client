@@ -1,3 +1,7 @@
+import type { ISong } from '@repo/lib/modules/songs/types/songs.types';
+
+export type { ISong, ISongArtist } from '@repo/lib/modules/songs/types/songs.types';
+
 export interface ISongSearchArtist {
   id: number;
   name: string;
@@ -18,27 +22,6 @@ export interface ISongSearchResult {
   link: string;
   preview: string | null;
   duration: number;
-}
-
-export interface ISongArtist {
-  id: string;
-  name: string;
-  url: string;
-}
-
-export interface ISong {
-  id: number;
-  trackId: string;
-  trackName: string;
-  artists: ISongArtist[];
-  albumId: string;
-  albumName: string;
-  albumCoverUrl: string;
-  url: string;
-  previewUrl: string | null;
-  durationMs: number;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface ISaveFavoriteSongPayload {

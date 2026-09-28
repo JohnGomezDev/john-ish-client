@@ -59,7 +59,7 @@ export function PostFormTagsField({
               </div>
             )}
 
-            <div className="rounded-md border border-input bg-white p-2">
+            <div className="rounded-md border border-input bg-background p-2">
               {availableTags.length > 0 ? (
                 <div className="flex flex-wrap gap-2">
                   {availableTags.map((tag) => (

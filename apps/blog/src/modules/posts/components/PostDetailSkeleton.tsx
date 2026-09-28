@@ -18,7 +18,7 @@ export function PostDetailSkeleton(): React.JSX.Element {
         <div className="h-9 w-4/5 animate-pulse rounded bg-muted sm:h-10" />
       </div>
 
-      <div className="mt-6 h-28 animate-pulse rounded-xl border border-border bg-white sm:mt-8 sm:h-24" />
+      <div className="mt-6 h-28 animate-pulse rounded-xl border border-border bg-background sm:mt-8 sm:h-24" />
 
       <div className="mt-6 space-y-3 sm:mt-8">
         <div className="h-4 w-48 animate-pulse rounded bg-muted" />

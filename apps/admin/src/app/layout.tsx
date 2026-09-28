@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Ubuntu_Condensed, Ubuntu_Sans } from 'next/font/google';
+import { Saira_Condensed, Ubuntu_Sans } from 'next/font/google';
 
 import { Providers } from '@/lib/providers/Providers';
 
@@ -11,15 +11,15 @@ const ubuntuSans = Ubuntu_Sans({
   display: 'swap',
 });
 
-const ubuntuCondensed = Ubuntu_Condensed({
-  weight: '400',
+const sairaCondensed = Saira_Condensed({
+  weight: ['400', '500'],
   subsets: ['latin', 'latin-ext'],
-  variable: '--font-ubuntu-condensed',
+  variable: '--font-saira-condensed',
   display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: 'byJohn - Dashboard de administración',
+  title: 'John-ish - Dashboard de administración',
   robots: { index: false, follow: false },
 };
 
@@ -30,7 +30,7 @@ interface IRootLayoutProps {
 export default function RootLayout({ children }: IRootLayoutProps): React.JSX.Element {
   return (
     <html lang="es">
-      <body className={`${ubuntuSans.variable} ${ubuntuCondensed.variable} antialiased`}>
+      <body className={`${ubuntuSans.variable} ${sairaCondensed.variable} antialiased`}>
         <Providers>{children}</Providers>
       </body>
     </html>

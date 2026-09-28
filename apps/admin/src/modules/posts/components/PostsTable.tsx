@@ -9,7 +9,7 @@ interface IPostsTableProps {
 
 export function PostsTable({ posts }: IPostsTableProps): React.JSX.Element {
   return (
-    <div className="overflow-hidden rounded-xl border border-border bg-white shadow-sm">
+    <div className="overflow-hidden rounded-xl border border-border bg-background shadow-sm">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[34rem] border-collapse table-auto text-left sm:min-w-[40rem] md:min-w-[52rem] lg:min-w-[56rem]">
           <thead>

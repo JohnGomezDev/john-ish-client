@@ -43,7 +43,7 @@ export function PostsListPagination({
   return (
     <nav
       aria-label="Paginación de artículos"
-      className="rounded-xl border border-border bg-white px-4 py-3 shadow-sm sm:px-5"
+      className="rounded-xl border border-border bg-background px-4 py-3 shadow-sm sm:px-5"
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-neutral/65">

@@ -91,7 +91,7 @@ export function PostFormMdxEditor({
   const initialMarkdownRef = useRef(defaultValue);
 
   return (
-    <div className="post-form-mdx-editor overflow-hidden rounded-md border border-input [&_.mdxeditor-toolbar]:border-b [&_.mdxeditor-toolbar]:border-input [&_.mdxeditor-toolbar]:bg-white">
+    <div className="post-form-mdx-editor overflow-hidden rounded-md border border-input [&_.mdxeditor-toolbar]:border-b [&_.mdxeditor-toolbar]:border-input [&_.mdxeditor-toolbar]:bg-background">
       <MDXEditor
         ref={editorRef}
         markdown={initialMarkdownRef.current}

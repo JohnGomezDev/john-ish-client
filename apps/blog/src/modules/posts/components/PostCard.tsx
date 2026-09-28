@@ -66,7 +66,7 @@ export function PostCard({ post, className }: IPostCardProps): React.JSX.Element
   return (
     <article
       className={cn(
-        'rounded-xl border border-border bg-white p-5 shadow-sm transition-shadow hover:shadow-md sm:p-6',
+        'rounded-xl border border-border bg-background p-5 shadow-sm transition-shadow hover:shadow-md sm:p-6',
         className,
       )}
     >
@@ -89,7 +89,7 @@ export function PostCard({ post, className }: IPostCardProps): React.JSX.Element
         ) : null}
       </div>
 
-      <h2 className="font-display text-xl leading-snug font-bold tracking-tight text-primary sm:text-2xl">
+      <h2 className="font-display text-xl leading-snug font-medium tracking-tight text-primary sm:text-2xl">
         <Link href={href} className="transition-colors hover:text-primary/80">
           {post.title}
         </Link>

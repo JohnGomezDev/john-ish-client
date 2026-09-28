@@ -18,7 +18,7 @@ export function PostDetail({ post }: IPostDetailProps): React.JSX.Element {
 
         <PostDetailCategoryBadge category={post.category} />
 
-        <h1 className="mt-4 font-display text-2xl leading-tight font-bold tracking-tight text-primary sm:mt-5 sm:text-3xl md:text-4xl md:leading-tight">
+        <h1 className="mt-4 font-display text-2xl leading-tight font-medium tracking-tight text-primary sm:mt-5 sm:text-3xl md:text-4xl md:leading-tight">
           {post.title}
         </h1>
 

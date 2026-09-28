@@ -13,7 +13,7 @@ export function PostsCategoriesNav(): React.JSX.Element {
   const total = categories.length;
 
   return (
-    <section className="rounded-xl border border-border bg-white p-4 shadow-sm sm:p-5">
+    <section className="rounded-xl border border-border bg-background p-4 shadow-sm sm:p-5">
       <div className="mb-3 flex items-center justify-between gap-2">
         <h2 className="text-xs font-semibold tracking-[0.12em] text-neutral uppercase">
           Categorías temáticas

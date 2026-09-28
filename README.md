@@ -8,30 +8,31 @@ Gestión con **Turborepo** + **pnpm workspaces**. Cada app es un proyecto Next.j
 
 ## Estado del proyecto
 
-| App          | Puerto | Estado        | Descripción                                                                            |
-| ------------ | ------ | ------------- | -------------------------------------------------------------------------------------- |
-| `apps/admin` | `3001` | Operativa     | Panel de administración (auth, CRUD de posts/categorías/tags, canciones favoritas)     |
-| `apps/blog`  | `3002` | Operativa     | Blog público (listado, detalle, SEO, páginas legales)                                  |
-| `apps/web`   | `3000` | **Pendiente** | Landing / portafolio personal — solo scaffold de Next.js; falta el desarrollo completo |
+| App          | Puerto | Estado    | Descripción                                                                        |
+| ------------ | ------ | --------- | ---------------------------------------------------------------------------------- |
+| `apps/web`   | `3000` | Operativa | Landing / portafolio personal (diseño custom, canción favorita, SEO)               |
+| `apps/admin` | `3001` | Operativa | Panel de administración (auth, CRUD de posts/categorías/tags, canciones favoritas) |
+| `apps/blog`  | `3002` | Operativa | Blog público (listado, detalle, SEO, páginas legales, asistente RAG)               |
 
 ---
 
 ## Stack
 
-| Tecnología                                     | Uso                                                |
-| ---------------------------------------------- | -------------------------------------------------- |
-| [Next.js 16](https://nextjs.org/) (App Router) | Apps `admin`, `blog`, `web`                        |
-| React 19 + TypeScript 5.9                      | UI y tipado estricto                               |
-| Tailwind CSS 4                                 | Estilos en las tres apps                           |
-| [shadcn/ui](https://ui.shadcn.com/) + Radix    | Primitivos UI en `admin` y `blog` (vía `@repo/ui`) |
-| TanStack Query v5                              | Estado de servidor                                 |
-| Redux Toolkit                                  | Solo en `admin` (sesión auth + UI)                 |
-| Axios                                          | Solo en `admin` (HTTP autenticado + refresh)       |
-| Native `fetch`                                 | `blog` (y futuro `web`) — lecturas públicas / SSR  |
-| React Hook Form                                | Formularios en `admin`                             |
-| MDXEditor                                      | Editor de contenido de posts en `admin`            |
-| react-markdown + rehype/remark                 | Render de Markdown compartido (`@repo/modules`)    |
-| Turborepo + pnpm 9                             | Orquestación del monorepo                          |
+| Tecnología                                     | Uso                                                            |
+| ---------------------------------------------- | -------------------------------------------------------------- |
+| [Next.js 16](https://nextjs.org/) (App Router) | Apps `admin`, `blog`, `web`                                    |
+| React 19 + TypeScript 5.9                      | UI y tipado estricto                                           |
+| Tailwind CSS 4                                 | Estilos en las tres apps                                       |
+| [shadcn/ui](https://ui.shadcn.com/) + Radix    | Primitivos UI en `admin` y `blog` (vía `@repo/ui`)             |
+| TanStack Query v5                              | Estado de servidor                                             |
+| Redux Toolkit                                  | Solo en `admin` (sesión auth + UI)                             |
+| Axios                                          | Solo en `admin` (HTTP autenticado + refresh)                   |
+| Native `fetch`                                 | `blog` y `web` — lecturas públicas / SSR                       |
+| React Hook Form                                | Formularios en `admin` y chat RAG en `blog`                    |
+| Framer Motion                                  | Animaciones en `web` (respeta `prefers-reduced-motion`)        |
+| MDXEditor                                      | Editor de contenido de posts en `admin`                        |
+| react-markdown + rehype/remark                 | Markdown de posts (`@repo/modules`) y respuestas RAG en `blog` |
+| Turborepo + pnpm 9                             | Orquestación del monorepo                                      |
 
 ---
 
@@ -40,13 +41,13 @@ Gestión con **Turborepo** + **pnpm workspaces**. Cada app es un proyecto Next.j
 ```
 client/
 ├── apps/
+│   ├── web/            # Landing / portafolio — diseño custom, canción favorita
 │   ├── admin/          # Panel privado — auth, CRUD, canciones
-│   ├── blog/           # Blog público — SEO, listado y detalle de posts
-│   └── web/            # Landing / portafolio — ⚠️ por desarrollar
+│   └── blog/           # Blog público — SEO, posts, asistente RAG
 ├── packages/
 │   ├── ui/             # @repo/ui — componentes compartidos (shadcn + utilidades)
 │   ├── lib/            # @repo/lib — clientes HTTP, tipos API, hooks/utils genéricos
-│   ├── modules/        # @repo/modules — módulos de dominio compartidos (p. ej. Markdown)
+│   ├── modules/        # @repo/modules — layout compartido, Markdown de posts, etc.
 │   ├── eslint-config/  # @repo/eslint-config
 │   └── typescript-config/  # @repo/typescript-config
 ├── API.md              # Contrato HTTP del backend (referencia para el frontend)
@@ -104,12 +105,13 @@ Blog de solo lectura, optimizado para SEO (metadata, sitemap, robots, JSON-LD).
 
 **Módulos** (`src/modules/`):
 
-| Módulo       | Responsabilidad                                 |
-| ------------ | ----------------------------------------------- |
-| `posts`      | Listado, detalle, búsqueda, filtros, paginación |
-| `categories` | Navegación / filtro por categoría               |
-| `layout`     | Header, footer, brand, redes                    |
-| `legal`      | Política de privacidad y términos de uso        |
+| Módulo       | Responsabilidad                                      |
+| ------------ | ---------------------------------------------------- |
+| `posts`      | Listado, detalle, búsqueda, filtros, paginación      |
+| `categories` | Navegación / filtro por categoría                    |
+| `layout`     | Header, footer, brand, redes                         |
+| `legal`      | Política de privacidad y términos de uso             |
+| `rag`        | Asistente del blog (chat HTTP sobre `POST /rag/ask`) |
 
 **Rutas principales:**
 
@@ -127,23 +129,46 @@ Blog de solo lectura, optimizado para SEO (metadata, sitemap, robots, JSON-LD).
 
 - Server Components para SSR/SSG donde aplica
 - `generateMetadata` / `generateStaticParams` en rutas dinámicas
-- Render de Markdown vía `@repo/modules`
+- Render de Markdown de posts vía `@repo/modules`
 - Sin Redux ni autenticación
+- **Asistente RAG** montado en el layout (`RagWidget`): FAB + panel de chat en todas las rutas
+  - Pregunta → espera → respuesta (`answer` + `sources` enlazados a posts)
+  - Historial efímero en memoria (se pierde al refrescar; botón “Eliminar chat”)
+  - `useMutation` (`useAskRag`) + formulario con react-hook-form (`useRagForm`)
+  - Respuestas del asistente con Markdown ligero (`react-markdown`)
+  - Contrato: [`API.md` — Asistente del Blog (RAG)](./API.md#asistente-del-blog-rag)
 
 ---
 
-### `apps/web` — Landing / portafolio (**pendiente**)
+### `apps/web` — Landing / portafolio
 
-Scaffold de Next.js en el puerto `3000`. Aún no tiene la estructura `src/`, módulos ni integración real con la API.
+Landing pública del portafolio personal con diseño 100 % custom (Tailwind; **sin** shadcn/`@repo/ui` como base visual). Componentes exclusivos de la landing viven en `apps/web` (no se mueven a `packages/ui`).
 
-**Objetivo previsto:**
+**Módulos** (`src/modules/`):
 
-- Landing personal con diseño 100 % custom (Tailwind; **sin** shadcn/`@repo/ui` como base visual)
-- Componentes exclusivos en `apps/web` (no se mueven a `packages/ui`)
-- Lecturas públicas con `createFetchClient` + TanStack Query cuando haga falta (p. ej. canción favorita)
-- SEO: `metadataBase`, `robots.ts`, `sitemap.ts`, JSON-LD (`Person`), `next/image`
+| Módulo    | Responsabilidad                                                                  |
+| --------- | -------------------------------------------------------------------------------- |
+| `landing` | Secciones de la home (hero, tools, vibes, blog CTA), header/footer, WhatsApp FAB |
+| `songs`   | Canción favorita (`GET /songs/favorite`) + reproductor de preview                |
 
-Hasta que se implemente, el comando `dev` de `web` solo arranca el starter.
+**Rutas principales:**
+
+- `/` — landing (secciones `#hero`, `#technologies`, `#vibes`, `#blog`)
+- `robots.ts` / `sitemap.ts` — SEO técnico
+
+**Capas locales:**
+
+- `src/lib/api/api-client.ts` — `createFetchClient` (sin auth)
+- `src/lib/providers/` — QueryClientProvider
+- Animaciones con Framer Motion (respetando `prefers-reduced-motion`)
+
+**Características clave:**
+
+- Hero con terminal animada, stack/tools, bloque “vibes” + music player
+- CTA al blog y a redes / WhatsApp
+- Lectura pública de canción favorita vía TanStack Query
+- SEO: `metadataBase`, Open Graph, `robots`/`sitemap`, JSON-LD (`Person`), `next/image`
+- Sin Redux ni autenticación; sin `@repo/ui`
 
 ---
 
@@ -178,9 +203,10 @@ Cada app instancia su propio cliente a partir de estas factories.
 
 ### `@repo/modules` (`packages/modules`)
 
-Piezas de dominio reutilizables entre apps (hoy: render de posts).
+Piezas de dominio reutilizables entre apps.
 
 - `posts/components/PostDetailMarkdown` — Markdown + GFM + syntax highlight + imágenes con `next/image`
+- `layout/` — header, brand, social links (usados por `blog` y `web`)
 
 ### Configuración
 
@@ -193,7 +219,7 @@ Piezas de dominio reutilizables entre apps (hoy: render de posts).
 
 ## Arquitectura por app
 
-Patrón común en `admin` y `blog` (y el previsto para `web`):
+Patrón común en `admin`, `blog` y `web`:
 
 ```
 src/
@@ -221,10 +247,10 @@ src/
 
 ### HTTP: cuándo usar qué
 
-| Cliente               | App                  | Uso                                             |
-| --------------------- | -------------------- | ----------------------------------------------- |
-| Axios + interceptores | `admin`              | Todo el HTTP del admin (auth + CRUD + lecturas) |
-| `createFetchClient`   | `blog`, futuro `web` | Endpoints públicos / SSR                        |
+| Cliente               | App           | Uso                                             |
+| --------------------- | ------------- | ----------------------------------------------- |
+| Axios + interceptores | `admin`       | Todo el HTTP del admin (auth + CRUD + lecturas) |
+| `createFetchClient`   | `blog`, `web` | Endpoints públicos / SSR                        |
 
 Detalle del contrato backend: [`API.md`](./API.md).
 
@@ -247,14 +273,17 @@ pnpm install
 Variables de entorno (por app, típicamente `.env.local`):
 
 ```env
-# admin y blog (y futuro web)
+# Las tres apps
 NEXT_PUBLIC_API_URL=http://localhost:4000/api
 
-# blog (y futuro web) — URL canónica de producción / local
+# URL canónica de cada app (metadata, sitemap, robots, JSON-LD)
+# web
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+# blog
 NEXT_PUBLIC_SITE_URL=http://localhost:3002
 ```
 
-El backend debe incluir el origen del frontend en `CORS_ORIGIN` con `credentials: true` (necesario para la cookie de refresh en admin).
+El backend debe incluir los orígenes del frontend en `CORS_ORIGIN` con `credentials: true` (necesario para la cookie de refresh en admin).
 
 ---
 
@@ -289,20 +318,8 @@ Puertos por defecto:
 
 ---
 
-## Roadmap inmediato — `apps/web`
-
-Pendiente de implementación:
-
-1. Reorganizar a `src/app` + `src/modules` / `src/components` alineado con el resto del monorepo
-2. Landing con diseño custom (hero, secciones, motion respetando `prefers-reduced-motion`)
-3. Cliente `createFetchClient` + hooks para datos públicos (p. ej. canción favorita)
-4. SEO técnico (`metadata`, `robots`, `sitemap`, JSON-LD, iconos OG)
-5. Dependencias previstas: Tailwind, TanStack Query, `@repo/lib` (no depender de `@repo/ui` para el look & feel)
-
----
-
 ## Documentación relacionada
 
-- [`API.md`](./API.md) — contrato HTTP de la Portfolio API
+- [`API.md`](./API.md) — contrato HTTP de la Portfolio API (incluye `POST /rag/ask` y `GET /songs/favorite`)
 - [Turborepo — tasks y filtros](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
 - [Next.js App Router](https://nextjs.org/docs/app)

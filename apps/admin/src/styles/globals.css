@@ -30,7 +30,7 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --font-sans: var(--font-ubuntu-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-ubuntu-condensed), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-saira-condensed), ui-sans-serif, system-ui, sans-serif;
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -49,21 +49,21 @@
   --primary-foreground: #ffffff;
   --secondary: var(--brand-secondary);
   --secondary-foreground: var(--brand-primary);
-  --tertiary: var(--brand-tertiary);
+  --tertiary: color-mix(in srgb, var(--brand-secondary) 45%, var(--brand-background));
   --tertiary-foreground: var(--brand-primary);
   --neutral: var(--brand-neutral);
-  --muted: color-mix(in srgb, var(--brand-neutral) 6%, white);
-  --muted-foreground: var(--brand-neutral);
-  --accent: color-mix(in srgb, var(--brand-secondary) 35%, white);
+  --muted: color-mix(in srgb, var(--brand-tertiary) 28%, var(--brand-background));
+  --muted-foreground: var(--brand-tertiary);
+  --accent: color-mix(in srgb, var(--brand-secondary) 22%, var(--brand-background));
   --accent-foreground: var(--brand-primary);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: #ffffff;
-  --border: color-mix(in srgb, var(--brand-neutral) 14%, white);
-  --input: color-mix(in srgb, var(--brand-neutral) 14%, white);
+  --border: color-mix(in srgb, var(--brand-tertiary) 55%, var(--brand-background));
+  --input: color-mix(in srgb, var(--brand-tertiary) 55%, var(--brand-background));
   --ring: var(--brand-secondary);
 }
 
-/* Admin stays light: white surfaces even if .dark is present */
+/* Admin stays light even if .dark is present */
 .dark {
   --background: var(--brand-background);
   --foreground: var(--brand-foreground);
@@ -75,17 +75,17 @@
   --primary-foreground: #ffffff;
   --secondary: var(--brand-secondary);
   --secondary-foreground: var(--brand-primary);
-  --tertiary: var(--brand-tertiary);
+  --tertiary: color-mix(in srgb, var(--brand-secondary) 45%, var(--brand-background));
   --tertiary-foreground: var(--brand-primary);
   --neutral: var(--brand-neutral);
-  --muted: color-mix(in srgb, var(--brand-neutral) 6%, white);
-  --muted-foreground: var(--brand-neutral);
-  --accent: color-mix(in srgb, var(--brand-secondary) 35%, white);
+  --muted: color-mix(in srgb, var(--brand-tertiary) 28%, var(--brand-background));
+  --muted-foreground: var(--brand-tertiary);
+  --accent: color-mix(in srgb, var(--brand-secondary) 22%, var(--brand-background));
   --accent-foreground: var(--brand-primary);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: #ffffff;
-  --border: color-mix(in srgb, var(--brand-neutral) 14%, white);
-  --input: color-mix(in srgb, var(--brand-neutral) 14%, white);
+  --border: color-mix(in srgb, var(--brand-tertiary) 55%, var(--brand-background));
+  --input: color-mix(in srgb, var(--brand-tertiary) 55%, var(--brand-background));
   --ring: var(--brand-secondary);
 }
 
@@ -108,19 +108,19 @@
   }
 
   .post-form-mdx-editor-content h1 {
-    @apply mt-6 mb-4 font-display text-3xl font-bold text-primary;
+    @apply mt-6 mb-4 font-display text-3xl font-medium text-primary;
   }
 
   .post-form-mdx-editor-content h2 {
-    @apply mt-6 mb-3 font-display text-2xl font-bold text-primary;
+    @apply mt-6 mb-3 font-display text-2xl font-medium text-primary;
   }
 
   .post-form-mdx-editor-content h3 {
-    @apply mt-5 mb-2 font-display text-xl font-semibold text-primary;
+    @apply mt-5 mb-2 font-display text-xl font-medium text-primary;
   }
 
   .post-form-mdx-editor-content h4 {
-    @apply mt-4 mb-2 font-display text-lg font-semibold text-primary;
+    @apply mt-4 mb-2 font-display text-lg font-medium text-primary;
   }
 
   .post-form-mdx-editor-content ul {

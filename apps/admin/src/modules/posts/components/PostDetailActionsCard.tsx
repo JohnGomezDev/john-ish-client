@@ -52,7 +52,7 @@ export function PostDetailActionsCard({ post }: IPostDetailActionsCardProps): Re
               <Button
                 type="button"
                 disabled={isActionPending}
-                className="w-full cursor-pointer border-primary bg-white text-primary hover:bg-secondary/40"
+                className="w-full cursor-pointer border-primary bg-background text-primary hover:bg-secondary/40"
                 variant="outline"
               >
                 {isUnpublishing ? 'Despublicando...' : 'Despublicar'}
@@ -70,7 +70,7 @@ export function PostDetailActionsCard({ post }: IPostDetailActionsCardProps): Re
                 <AlertDialogCancel disabled={isUnpublishing}>Cancelar</AlertDialogCancel>
                 <AlertDialogAction
                   disabled={isUnpublishing}
-                  className="border-primary border-1 bg-white text-primary hover:bg-secondary/40"
+                  className="border-primary border-1 bg-background text-primary hover:bg-secondary/40"
                   onClick={(event) => {
                     event.preventDefault();
                     handleUnpublish();

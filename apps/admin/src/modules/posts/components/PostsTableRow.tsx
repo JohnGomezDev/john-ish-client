@@ -19,7 +19,7 @@ export function PostsTableRow({ post }: IPostsTableRowProps): React.JSX.Element 
   const authorName = formatAuthorName(post.admin);
 
   return (
-    <tr className="border-b border-border transition-colors hover:bg-white">
+    <tr className="border-b border-border transition-colors hover:bg-background">
       <td className="min-w-[10rem] max-w-[14rem] px-4 py-4 align-top sm:min-w-[12rem] sm:px-6 lg:min-w-[14rem]">
         <p className="line-clamp-2 text-sm leading-snug font-medium break-words text-primary" title={post.title}>
           {post.title}
@@ -59,7 +59,7 @@ export function PostsTableRow({ post }: IPostsTableRowProps): React.JSX.Element 
             asChild
             variant="outline"
             size="icon-sm"
-            className="shrink-0 cursor-pointer border-primary bg-white text-primary hover:bg-secondary/40"
+            className="shrink-0 cursor-pointer border-primary bg-background text-primary hover:bg-secondary/40"
           >
             <Link href={ROUTES.admin.posts.edit(post.id)} aria-label="Editar post">
               <Pencil aria-hidden="true" className="size-4" />

@@ -1,34 +1,23 @@
 import { ROUTES } from '@/lib/constants/routes.constants';
 
-export const SITE_NAME = 'byJohn';
-export const SITE_FULL_NAME = 'byJohn Blog';
+/** Display name in the UI. */
+export const SITE_NAME = 'John-ish';
+/** Public blog title shown in the UI. */
+export const SITE_FULL_NAME = 'John-ish Blog';
+/** Registered brand / domain label (no hyphen). */
+export const SITE_BRAND = 'John-ish';
+/** Blog public hostname placeholder. */
+export const SITE_DOMAIN = 'blog.johnish.dev';
 
 export const SITE_DESCRIPTION =
-  'Experiencias, ideas y aprendizajes desde el código hasta las tendencias que están redefiniendo la tecnología.';
+  'Comparto lo que construyo, aprendo y descubro mientras desarrollo software: experiencias reales, conceptos, decisiones técnicas y proyectos. Sin humo ni recetas mágicas.';
 
 export interface INavLink {
   label: string;
   href: string;
 }
 
-export type TSocialLinkId = 'facebook' | 'instagram' | 'x' | 'linkedin' | 'whatsapp' | 'copy';
-
-export interface ISocialLink {
-  id: TSocialLinkId;
-  label: string;
-  href?: string;
-}
-
-/** Placeholder hrefs until routes / profiles are defined. */
-export const SOCIAL_LINKS: readonly ISocialLink[] = [
-  { id: 'facebook', label: 'Facebook', href: '#' },
-  { id: 'instagram', label: 'Instagram', href: '#' },
-  { id: 'x', label: 'X', href: '#' },
-  { id: 'linkedin', label: 'LinkedIn', href: '#' },
-] as const;
-
 export const FOOTER_LEGAL_LINKS: readonly INavLink[] = [
   { label: 'Política de Privacidad', href: ROUTES.privacyPolicy },
-  { label: 'Términos', href: ROUTES.termsOfUse },
-  { label: 'Contacto', href: '#' },
+  { label: 'Términos de uso', href: ROUTES.termsOfUse }
 ] as const;

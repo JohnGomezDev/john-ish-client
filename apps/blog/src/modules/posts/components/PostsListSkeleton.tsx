@@ -4,7 +4,7 @@ export function PostsListSkeleton(): React.JSX.Element {
       {Array.from({ length: 3 }, (_, index) => (
         <div
           key={index}
-          className="h-52 animate-pulse rounded-xl border border-border bg-white p-5 sm:h-56 sm:p-6"
+          className="h-52 animate-pulse rounded-xl border border-border bg-background p-5 sm:h-56 sm:p-6"
         >
           <div className="mb-4 h-4 w-40 rounded bg-muted" />
           <div className="mb-2 h-7 w-4/5 rounded bg-muted" />

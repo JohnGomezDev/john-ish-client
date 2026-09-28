@@ -43,7 +43,7 @@ export function PostFormTitleSection({
             <RequiredFieldIndicator />
           </Label>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-            <span className="shrink-0 text-sm text-neutral/65">blog.byjohn.com/posts/</span>
+            <span className="shrink-0 text-sm text-neutral/65">blog.johnish.dev/posts/</span>
             <Input
               id="slug"
               placeholder="slug-del-post *"

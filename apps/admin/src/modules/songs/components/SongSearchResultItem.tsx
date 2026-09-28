@@ -2,12 +2,12 @@
 
 import { Heart } from 'lucide-react';
 
+import { formatDurationFromSeconds } from '@repo/lib/modules/songs/utils/song-data.utils';
 import { Button } from '@repo/ui/components/ui/button';
 
 import { useFavoriteSong } from '../hooks/use-favorite-song';
 import { useSongActions } from '../hooks/use-song-actions';
 import type { ISongSearchResult } from '../types/songs.types';
-import { formatDurationFromSeconds } from '../utils/song-data.utils';
 import { SongCover } from './SongCover';
 import { SongPlayButton } from './SongPlayButton';
 
@@ -52,7 +52,7 @@ export function SongSearchResultItem({
               size="sm"
               disabled={isSavingFavorite}
               onClick={handleSaveFavorite}
-              className="h-8 cursor-pointer border-primary bg-white text-primary hover:bg-secondary/40"
+              className="h-8 cursor-pointer border-primary bg-background text-primary hover:bg-secondary/40"
             >
               <Heart aria-hidden="true" className="size-3.5" />
               <span className="hidden sm:inline">

@@ -30,7 +30,7 @@ export function LoginForm(): React.JSX.Element {
         <CardTitle className="text-xl font-bold sm:text-2xl">
           Inicia sesión en tu cuenta
         </CardTitle>
-        <CardDescription className="text-sm sm:text-base">
+        <CardDescription className="text-sm text-neutral/65 sm:text-base">
           Introduce tus credenciales para acceder al dashboard administrativo.
         </CardDescription>
       </CardHeader>

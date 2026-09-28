@@ -1,6 +1,6 @@
 'use client';
 
-import 'highlight.js/styles/obsidian.min.css';
+import 'highlight.js/styles/gml.css';
 import '../styles/post-detail-markdown.css';
 
 import Image from 'next/image';
@@ -8,6 +8,11 @@ import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
+
+import {
+  paragraphContainsImage,
+  paragraphIsOnlyImage,
+} from '../utils/post-detail-markdown.utils';
 
 interface IPostDetailMarkdownProps {
   content: string;
@@ -26,6 +31,9 @@ function isHighlightedCodeBlock(className?: string): boolean {
   return Boolean(className?.includes('hljs'));
 }
 
+const PARAGRAPH_CLASS_NAME =
+  'mt-4 text-sm leading-relaxed text-neutral first:mt-0 sm:mt-5 sm:text-base sm:leading-7';
+
 export function PostDetailMarkdown({ content }: IPostDetailMarkdownProps): React.JSX.Element {
   return (
     <div className="post-detail-markdown font-sans text-neutral">
@@ -34,30 +42,38 @@ export function PostDetailMarkdown({ content }: IPostDetailMarkdownProps): React
         rehypePlugins={[rehypeRaw, [rehypeHighlight, rehypeHighlightOptions]]}
         components={{
           h1: ({ children }) => (
-            <h1 className="mt-8 font-display text-2xl leading-tight font-bold text-primary first:mt-0 sm:mt-10 sm:text-3xl">
+            <h1 className="mt-8 font-display text-2xl leading-tight font-medium text-primary first:mt-0 sm:mt-10 sm:text-3xl">
               {children}
             </h1>
           ),
           h2: ({ children }) => (
-            <h2 className="mt-8 font-display text-xl leading-tight font-bold text-primary first:mt-0 sm:mt-10 sm:text-2xl">
+            <h2 className="mt-8 font-display text-xl leading-tight font-medium text-primary first:mt-0 sm:mt-10 sm:text-2xl">
               {children}
             </h2>
           ),
           h3: ({ children }) => (
-            <h3 className="mt-6 font-display text-lg leading-snug font-bold text-primary first:mt-0 sm:mt-8 sm:text-xl">
+            <h3 className="mt-6 font-display text-lg leading-snug font-medium text-primary first:mt-0 sm:mt-8 sm:text-xl">
               {children}
             </h3>
           ),
           h4: ({ children }) => (
-            <h4 className="mt-5 font-display text-base leading-snug font-bold text-primary first:mt-0 sm:mt-6 sm:text-lg">
+            <h4 className="mt-5 font-display text-base leading-snug font-medium text-primary first:mt-0 sm:mt-6 sm:text-lg">
               {children}
             </h4>
           ),
-          p: ({ children }) => (
-            <p className="mt-4 text-sm leading-relaxed text-neutral first:mt-0 sm:mt-5 sm:text-base sm:leading-7">
-              {children}
-            </p>
-          ),
+          p: ({ children, node }) => {
+            // Markdown wraps `![alt](src)` in <p>; our img renderer returns <figure>/<div>,
+            // which is invalid inside <p> and causes hydration errors.
+            if (paragraphContainsImage(node)) {
+              if (paragraphIsOnlyImage(node)) {
+                return <>{children}</>;
+              }
+
+              return <div className={PARAGRAPH_CLASS_NAME}>{children}</div>;
+            }
+
+            return <p className={PARAGRAPH_CLASS_NAME}>{children}</p>;
+          },
           em: ({ children }) => <em className="italic text-neutral">{children}</em>,
           strong: ({ children }) => (
             <strong className="font-bold text-primary underline decoration-secondary decoration-[0.22em] underline-offset-[0.22em]">
@@ -169,3 +185,4 @@ export function PostDetailMarkdown({ content }: IPostDetailMarkdownProps): React
     </div>
   );
 }
+

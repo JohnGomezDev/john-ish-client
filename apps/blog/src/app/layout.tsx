@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
-import { Ubuntu_Condensed, Ubuntu_Sans } from 'next/font/google';
+import { Saira_Condensed, Ubuntu_Sans } from 'next/font/google';
 
 import { Providers } from '@/lib/providers/Providers';
 import { BlogFooter } from '@/modules/layout/components/BlogFooter';
 import { BlogHeader } from '@/modules/layout/components/BlogHeader';
+import { RagWidget } from '@/modules/rag/components/RagWidget';
 
-import './globals.css';
+import '@/styles/globals.css';
 
 const ubuntuSans = Ubuntu_Sans({
   subsets: ['latin', 'latin-ext'],
@@ -13,10 +14,10 @@ const ubuntuSans = Ubuntu_Sans({
   display: 'swap',
 });
 
-const ubuntuCondensed = Ubuntu_Condensed({
-  weight: '400',
+const sairaCondensed = Saira_Condensed({
+  weight: ['400', '500'],
   subsets: ['latin', 'latin-ext'],
-  variable: '--font-ubuntu-condensed',
+  variable: '--font-saira-condensed',
   display: 'swap',
 });
 
@@ -25,17 +26,17 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'byJohn Blog',
-    template: '%s · byJohn Blog',
+    default: 'John-ish Blog · Desarrollo de Software',
+    template: '%s · John-ish Blog',
   },
   description:
-    'Experiencias, ideas y aprendizajes sobre desarrollo de software, programación y las tendencias que están redefiniendo la tecnología',
+    'Artículos sobre desarrollo de software, arquitectura, backend, frontend, TypeScript, React, NestJS y tecnología. Experiencias y aprendizajes sin humo ni recetas mágicas.',
   authors: [{ name: 'John Gomez' }],
   creator: 'John Gomez',
   openGraph: {
     type: 'website',
     locale: 'es_ES',
-    siteName: 'byJohn Blog',
+    siteName: 'John-ish Blog',
     url: siteUrl,
   },
   twitter: {
@@ -51,13 +52,14 @@ export default function RootLayout({
 }>): React.JSX.Element {
   return (
     <html lang="es">
-      <body className={`${ubuntuSans.variable} ${ubuntuCondensed.variable} antialiased`}>
+      <body className={`${ubuntuSans.variable} ${sairaCondensed.variable} antialiased`}>
         <Providers>
           <div className="flex min-h-dvh flex-col">
             <BlogHeader />
             <main className="flex-1">{children}</main>
             <BlogFooter />
           </div>
+          <RagWidget />
         </Providers>
       </body>
     </html>

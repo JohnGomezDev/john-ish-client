@@ -17,7 +17,7 @@ export function SongsSearchSection(): React.JSX.Element {
   const renderResults = (): React.JSX.Element => {
     if (!hasSubmitted) {
       return (
-        <div className="rounded-xl border border-dashed border-border bg-white px-6 py-12 text-center">
+        <div className="rounded-xl border border-dashed border-border bg-background px-6 py-12 text-center">
           <p className="text-sm text-neutral/65">
             Usa el buscador para encontrar canciones.
           </p>
@@ -39,7 +39,7 @@ export function SongsSearchSection(): React.JSX.Element {
 
     if (!data?.length) {
       return (
-        <div className="rounded-xl border border-dashed border-border bg-white px-6 py-12 text-center">
+        <div className="rounded-xl border border-dashed border-border bg-background px-6 py-12 text-center">
           <p className="text-sm text-neutral/65">No se encontraron canciones para tu búsqueda.</p>
         </div>
       );

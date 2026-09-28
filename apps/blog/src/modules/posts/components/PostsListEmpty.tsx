@@ -13,7 +13,7 @@ export function PostsListEmpty({ search, categorySlug }: IPostsListEmptyProps): 
   }
 
   return (
-    <div className="rounded-xl border border-dashed border-border bg-white px-6 py-14 text-center">
+    <div className="rounded-xl border border-dashed border-border bg-background px-6 py-14 text-center">
       <p className="text-sm text-neutral/65">{message}</p>
     </div>
   );
@@ -21,7 +21,7 @@ export function PostsListEmpty({ search, categorySlug }: IPostsListEmptyProps): 
 
 export function PostsListError(): React.JSX.Element {
   return (
-    <div className="rounded-xl border border-dashed border-border bg-white px-6 py-14 text-center">
+    <div className="rounded-xl border border-dashed border-border bg-background px-6 py-14 text-center">
       <p className="text-sm text-destructive">No se pudieron cargar los posts.</p>
     </div>
   );

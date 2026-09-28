@@ -16,7 +16,7 @@ export function FormPageHeader({
     <div className="flex items-center gap-3">
       <Link
         href={backHref}
-        className="flex size-9 shrink-0 items-center justify-center rounded-md border border-border bg-white text-neutral/80 transition-colors hover:bg-white"
+        className="flex size-9 shrink-0 items-center justify-center rounded-md border border-border bg-background text-neutral/80 transition-colors hover:bg-background"
         aria-label={backAriaLabel}
       >
         <ArrowLeft className="size-4" />

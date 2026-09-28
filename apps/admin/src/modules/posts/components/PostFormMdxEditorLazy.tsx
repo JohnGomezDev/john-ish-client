@@ -7,7 +7,7 @@ const PostFormMdxEditor = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="flex h-64 items-center justify-center rounded-md border border-input bg-white text-sm text-neutral/65">
+      <div className="flex h-64 items-center justify-center rounded-md border border-input bg-background text-sm text-neutral/65">
         Cargando editor...
       </div>
     ),

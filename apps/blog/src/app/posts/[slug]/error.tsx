@@ -14,7 +14,7 @@ interface IPostErrorProps {
 export default function PostError({ error, reset }: IPostErrorProps): React.JSX.Element {
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col items-center px-4 py-16 text-center sm:px-6 sm:py-20 lg:px-8">
-      <h1 className="font-display text-2xl font-bold text-primary sm:text-3xl">
+      <h1 className="font-display text-2xl font-medium text-primary sm:text-3xl">
         Algo salió mal
       </h1>
       <p className="mt-3 max-w-md text-sm leading-relaxed text-neutral/65 sm:text-base">

@@ -23,7 +23,7 @@ export function PostDetailMeta({ post }: IPostDetailMetaProps): React.JSX.Elemen
     new Date(post.updatedAt).getTime() !== new Date(publishedAt).getTime();
 
   return (
-    <div className="mt-6 rounded-xl border border-border bg-white px-4 py-4 sm:mt-8 sm:px-5 sm:py-5">
+    <div className="mt-6 rounded-xl border border-border bg-background px-4 py-4 sm:mt-8 sm:px-5 sm:py-5">
       <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
         <div className="min-w-0">
           <p className="truncate text-sm font-bold text-primary sm:text-base">{authorName}</p>
@@ -50,11 +50,7 @@ export function PostDetailMeta({ post }: IPostDetailMetaProps): React.JSX.Elemen
           </div>
         </div>
 
-        <PostDetailShareButtons
-          url={canonicalUrl}
-          title={post.title}
-          shareUrls={shareUrls}
-        />
+        <PostDetailShareButtons url={canonicalUrl} shareUrls={shareUrls} />
       </div>
     </div>
   );

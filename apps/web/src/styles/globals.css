@@ -1,0 +1,108 @@
+@import 'tailwindcss';
+@import '../../../../packages/ui/src/styles/brand.css';
+
+@source "../../../../packages/modules/src/**/*.{ts,tsx}";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-ubuntu-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-saira-condensed), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --animate-brand-caret-blink: brand-caret-blink 1s step-end infinite;
+  --animate-pulse-ring: pulse-ring 2.5s ease-out infinite;
+  --animate-waveform-bar: waveform-bar 0.85s ease-in-out infinite;
+}
+
+@keyframes brand-caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, #25d366 45%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 12px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes waveform-bar {
+  0%,
+  100% {
+    transform: scaleY(0.4);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+:root {
+  /* Palette test: #121212 · #BCBCBC · #D6FF00 · #FFFFFF */
+  --background: #121212;
+  --foreground: #ffffff;
+  --accent: #d6ff00;
+  --accent-foreground: #121212;
+  --surface: color-mix(in srgb, #bcbcbc 10%, #121212);
+  --surface-elevated: color-mix(in srgb, #bcbcbc 16%, #121212);
+  --muted: color-mix(in srgb, #bcbcbc 12%, #121212);
+  --muted-foreground: #bcbcbc;
+  --border: color-mix(in srgb, #bcbcbc 28%, transparent);
+  --ring: #d6ff00;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}

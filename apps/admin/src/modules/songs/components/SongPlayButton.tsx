@@ -5,7 +5,7 @@ import { Loader2, Pause, Play } from 'lucide-react';
 import { Button } from '@repo/ui/components/ui/button';
 import { cn } from '@repo/ui/lib/utils';
 
-import { useSongPreview } from '../hooks/use-song-preview';
+import { useSongPreview } from '@repo/lib/modules/songs/hooks/use-song-preview';
 
 interface ISongPlayButtonProps {
   previewUrl: string | null;

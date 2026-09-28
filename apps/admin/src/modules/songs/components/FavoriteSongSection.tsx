@@ -23,7 +23,7 @@ export function FavoriteSongSection(): React.JSX.Element {
 
     if (!song) {
       return (
-        <div className="rounded-xl border border-dashed border-border bg-white px-6 py-12 text-center">
+        <div className="rounded-xl border border-dashed border-border bg-background px-6 py-12 text-center">
           <p className="text-sm text-neutral/65">Aún no hay ninguna canción favorita guardada.</p>
         </div>
       );
