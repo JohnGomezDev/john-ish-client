@@ -13,7 +13,7 @@ export interface INavLink {
 }
 
 export const GITHUB_HREF = 'https://github.com/JohnGomezDev';
-export const BLOG_HREF = 'http://localhost:3002';
+export const BLOG_HREF = 'https://blog.johnish.dev';
 
 export const NAV_LINKS: readonly INavLink[] = [
   { label: 'Tecnologías', href: '#technologies' },
