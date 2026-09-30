@@ -6,6 +6,13 @@
   counter-reset: post-detail-item;
 }
 
+.post-detail-markdown .post-detail-ol > li,
+.post-detail-markdown .post-detail-ul > li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
 .post-detail-markdown .post-detail-ol > li {
   counter-increment: post-detail-item;
 }
@@ -32,7 +39,8 @@
 }
 
 @media (min-width: 640px) {
-  .post-detail-markdown .post-detail-ol > li {
+  .post-detail-markdown .post-detail-ol > li,
+  .post-detail-markdown .post-detail-ul > li {
     gap: 1rem;
   }
 
@@ -50,6 +58,7 @@
 
 .post-detail-markdown .post-detail-ul > li::before {
   content: '';
+  display: block;
   margin-top: 0.55em;
   height: 0.45rem;
   width: 0.45rem;
