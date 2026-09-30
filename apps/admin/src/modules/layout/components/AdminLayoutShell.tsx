@@ -22,7 +22,7 @@ export function AdminLayoutShell({ children }: IAdminLayoutShellProps): React.JS
   };
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
+    <div className="flex h-dvh overflow-hidden bg-background">
       {sidebarOpen && (
         <button
           type="button"
@@ -34,14 +34,14 @@ export function AdminLayoutShell({ children }: IAdminLayoutShellProps): React.JS
 
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-50 h-screen w-64 shrink-0 border-r border-border bg-background transition-transform duration-300 ease-in-out lg:static lg:z-auto lg:translate-x-0',
+          'fixed inset-y-0 left-0 z-50 h-dvh w-64 shrink-0 overflow-hidden border-r border-border bg-background transition-transform duration-300 ease-in-out lg:static lg:z-auto lg:translate-x-0',
           sidebarOpen ? 'translate-x-0' : '-translate-x-full',
         )}
       >
         <AdminSidebar onNavigate={closeSidebar} />
       </aside>
 
-      <div className="flex h-screen min-w-0 flex-1 flex-col overflow-hidden">
+      <div className="flex h-dvh min-w-0 flex-1 flex-col overflow-hidden">
         <header className="flex h-14 shrink-0 items-center border-b border-border bg-background px-4 lg:hidden">
           <Button
             type="button"
