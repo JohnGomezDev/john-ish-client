@@ -34,6 +34,21 @@ function isHighlightedCodeBlock(className?: string): boolean {
 const PARAGRAPH_CLASS_NAME =
   'mt-4 text-sm leading-relaxed text-neutral first:mt-0 sm:mt-5 sm:text-base sm:leading-7';
 
+const CONTENT_IMAGE_MAX_WIDTH_PX = 760;
+
+function parseImageDimension(value: string | number | undefined): number | null {
+  if (typeof value === 'number' && Number.isFinite(value) && value > 0) {
+    return Math.round(value);
+  }
+
+  if (typeof value === 'string' && /^\d+(\.\d+)?$/.test(value.trim())) {
+    const parsed = Number(value);
+    return parsed > 0 ? Math.round(parsed) : null;
+  }
+
+  return null;
+}
+
 export function PostDetailMarkdown({ content }: IPostDetailMarkdownProps): React.JSX.Element {
   return (
     <div className="post-detail-markdown font-sans text-neutral">
@@ -149,12 +164,36 @@ export function PostDetailMarkdown({ content }: IPostDetailMarkdownProps): React
           td: ({ children }) => (
             <td className="border border-border px-3 py-2 text-neutral">{children}</td>
           ),
-          img: ({ src, alt }) => {
+          img: ({ src, alt, width, height }) => {
             if (typeof src !== 'string' || src.length === 0) {
               return null;
             }
 
             const imageAlt = alt ?? '';
+            const imageWidth = parseImageDimension(width);
+            const imageHeight = parseImageDimension(height);
+            const caption = imageAlt ? (
+              <figcaption className="mt-2 text-center text-xs text-neutral/60">{imageAlt}</figcaption>
+            ) : null;
+
+            if (imageWidth !== null && imageHeight !== null) {
+              const displayedWidth = Math.min(imageWidth, CONTENT_IMAGE_MAX_WIDTH_PX);
+
+              return (
+                <figure className="mx-auto mt-5 w-fit max-w-full sm:mt-6">
+                  <Image
+                    src={src}
+                    alt={imageAlt}
+                    width={imageWidth}
+                    height={imageHeight}
+                    sizes={`(max-width: 768px) 100vw, ${displayedWidth}px`}
+                    className="h-auto max-w-full"
+                    style={{ width: imageWidth, height: 'auto' }}
+                  />
+                  {caption}
+                </figure>
+              );
+            }
 
             return (
               <figure className="mt-5 sm:mt-6">
@@ -170,11 +209,7 @@ export function PostDetailMarkdown({ content }: IPostDetailMarkdownProps): React
                     className="object-contain"
                   />
                 </div>
-                {imageAlt ? (
-                  <figcaption className="mt-2 text-center text-xs text-neutral/60">
-                    {imageAlt}
-                  </figcaption>
-                ) : null}
+                {caption}
               </figure>
             );
           },

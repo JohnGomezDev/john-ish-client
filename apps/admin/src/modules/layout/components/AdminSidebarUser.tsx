@@ -25,7 +25,7 @@ export function AdminSidebarUser(): React.JSX.Element {
   };
 
   return (
-    <div className="flex items-center gap-3 border-t border-border px-4 py-4">
+    <div className="mt-auto flex shrink-0 items-center gap-3 border-t border-border px-4 py-4">
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-semibold text-primary">{displayName}</p>
         <p className="truncate text-xs text-neutral/65">Administrador</p>
