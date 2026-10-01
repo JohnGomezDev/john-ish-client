@@ -2,32 +2,32 @@
 
 import { motion } from 'framer-motion';
 
+import { SectionFrame } from '@/modules/landing/components/SectionFrame';
 import { useScrollFadeUp } from '@/modules/landing/hooks/use-animations';
-import {
-  BLOG_HREF,
-  SECTION_CLASS,
-} from '@/modules/landing/constants/landing.constants';
+import { BLOG_HREF } from '@/modules/landing/constants/landing.constants';
 
 export function BlogPreviewSection(): React.JSX.Element {
   const content = useScrollFadeUp();
 
   return (
-    <section
+    <SectionFrame
       id="blog"
-      aria-labelledby="blog-preview-heading"
-      className={SECTION_CLASS}
+      index="04"
+      label="blog"
+      ariaLabelledBy="blog-preview-heading"
+      density="compact"
     >
       <motion.div
         {...content}
-        className="overflow-hidden rounded-2xl border border-border bg-surface"
+        className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2 lg:gap-16"
       >
-        <div className="flex flex-col items-center gap-5 px-6 py-14 text-center sm:gap-6 sm:px-12 sm:py-16 lg:py-20">
-          <h2
-            id="blog-preview-heading"
-            className="font-display text-3xl font-medium tracking-tight text-foreground sm:text-4xl lg:text-5xl"
-          >
-            Del editor al artículo
-          </h2>
+        <h2
+          id="blog-preview-heading"
+          className="font-display text-3xl font-medium tracking-tight text-foreground sm:text-4xl lg:text-5xl"
+        >
+          Del editor al artículo
+        </h2>
+        <div className="flex flex-col items-start gap-5">
           <p className="max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base lg:text-lg">
             Lecciones aprendidas en producción, análisis técnicos sin jerga
             vacía y reflexiones sobre el oficio de construir software con proposito.
@@ -36,7 +36,7 @@ export function BlogPreviewSection(): React.JSX.Element {
             href={BLOG_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-1 inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface sm:text-base"
+            className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:text-base"
           >
             Ir al Blog
             <svg
@@ -54,6 +54,6 @@ export function BlogPreviewSection(): React.JSX.Element {
           </a>
         </div>
       </motion.div>
-    </section>
+    </SectionFrame>
   );
 }

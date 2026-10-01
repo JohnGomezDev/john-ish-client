@@ -2,9 +2,9 @@
 
 import { motion } from 'framer-motion';
 
+import { SectionFrame } from '@/modules/landing/components/SectionFrame';
 import { useScrollFadeUp } from '@/modules/landing/hooks/use-animations';
 import {
-  SECTION_CLASS,
   TECH_STACK,
   type ITechStackCategory,
   type ITechStackSnippet,
@@ -91,7 +91,7 @@ function StackCodeBlock({
   const lastIndex = categories.length - 1;
 
   return (
-    <pre className="overflow-x-auto p-4 font-mono text-[12px] leading-6 sm:p-6 sm:text-sm sm:leading-7">
+    <pre className="overflow-x-auto py-1 font-mono text-[12px] leading-6 sm:text-sm sm:leading-7">
       <code>
         <TypedComment text={comment} />
 
@@ -142,31 +142,28 @@ export function ToolsSection(): React.JSX.Element {
   const panel = useScrollFadeUp(0.08);
 
   return (
-    <section id="technologies" aria-labelledby="technologies-heading" className={SECTION_CLASS}>
-      <motion.h2
-        {...heading}
-        id="technologies-heading"
-        className="mb-8 font-display text-2xl font-medium tracking-tight text-foreground sm:mb-10 sm:text-3xl"
-      >
-        Mi caja de herramientas
-      </motion.h2>
+    <SectionFrame
+      id="technologies"
+      index="02"
+      label="tecnologías"
+      ariaLabelledBy="technologies-heading"
+      density="tight"
+    >
+      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(12rem,0.7fr)_minmax(0,1.5fr)] lg:gap-12">
+        <motion.h2
+          {...heading}
+          id="technologies-heading"
+          className="font-display text-2xl font-medium tracking-tight text-foreground sm:text-3xl"
+        >
+          Mi caja de herramientas
+        </motion.h2>
 
-      <motion.div
-        {...panel}
-        className="overflow-hidden rounded-2xl border border-border bg-surface"
-      >
-        <div className="flex items-center gap-2 border-b border-border bg-surface-elevated px-4 py-3">
-          <span className="size-2.5 rounded-full bg-border" aria-hidden="true" />
-          <span className="size-2.5 rounded-full bg-border" aria-hidden="true" />
-          <span className="size-2.5 rounded-full bg-border" aria-hidden="true" />
-          <span className="ml-3 font-mono text-xs text-muted-foreground">
-            {TECH_STACK.fileName}
-          </span>
-        </div>
-
-        <StackCodeBlock snippet={TECH_STACK} />
-        <StackAccessibilityList categories={TECH_STACK.categories} />
-      </motion.div>
-    </section>
+        <motion.div {...panel} className="min-w-0">
+          <p className="mb-2 font-mono text-xs text-muted-foreground">{TECH_STACK.fileName}</p>
+          <StackCodeBlock snippet={TECH_STACK} />
+          <StackAccessibilityList categories={TECH_STACK.categories} />
+        </motion.div>
+      </div>
+    </SectionFrame>
   );
 }

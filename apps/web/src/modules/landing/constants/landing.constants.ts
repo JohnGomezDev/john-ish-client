@@ -3,10 +3,6 @@ export const SITE_NAME = 'John-ish';
 /** Registered brand / domain label (no hyphen). */
 export const SITE_BRAND = 'John-ish';
 
-/** Shared vertical rhythm between landing sections (mobile-first). */
-export const SECTION_CLASS =
-  'mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24';
-
 export interface INavLink {
   label: string;
   href: string;

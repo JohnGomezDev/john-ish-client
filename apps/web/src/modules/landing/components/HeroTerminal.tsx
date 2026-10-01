@@ -59,14 +59,11 @@ export function HeroTerminal(): React.JSX.Element {
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.04]"
         style={{
-          backgroundImage:
-            'radial-gradient(circle, #d6ff00 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(circle, #d6ff00 1px, transparent 1px)',
           backgroundSize: '22px 22px',
         }}
+        aria-hidden="true"
       />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-foreground/5" />
-
-      {/* Title bar — matches ToolsSection chrome */}
       <div className="relative z-10 flex shrink-0 items-center gap-2 border-b border-border bg-surface-elevated px-4 py-3">
         <span className="size-2.5 rounded-full bg-accent/80" aria-hidden="true" />
         <span className="size-2.5 rounded-full bg-foreground/50" aria-hidden="true" />
@@ -76,7 +73,6 @@ export function HeroTerminal(): React.JSX.Element {
         </span>
       </div>
 
-      {/* Scrollable output + input */}
       <div
         ref={scrollRef}
         className="relative z-10 flex min-h-0 flex-1 cursor-text flex-col overflow-y-auto p-3 font-mono text-[11px] leading-5 sm:p-4 sm:text-xs sm:leading-6"
@@ -112,19 +108,24 @@ export function HeroTerminal(): React.JSX.Element {
         </div>
       </div>
 
-      {/* Suggestion chips — mobile-friendly */}
-      <div className="relative z-10 flex shrink-0 flex-wrap gap-1.5 border-t border-border bg-surface-elevated/80 px-3 py-2.5 sm:px-4">
-        {TERMINAL_SUGGESTIONS.map((suggestion) => (
-          <button
-            key={suggestion}
-            type="button"
-            onClick={() => runSuggestion(suggestion)}
-            className="rounded-md border border-border bg-background/60 px-2 py-1 font-mono text-[10px] text-muted-foreground transition-colors hover:border-accent/40 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:text-[11px]"
-          >
-            {suggestion}
-          </button>
+      <ul className="relative z-10 flex shrink-0 flex-wrap items-center gap-y-1 border-t border-border px-3 py-2.5 sm:px-4">
+        {TERMINAL_SUGGESTIONS.map((suggestion, index) => (
+          <li key={suggestion} className="flex items-center">
+            {index > 0 ? (
+              <span className="px-2 font-mono text-[11px] text-muted-foreground/40" aria-hidden="true">
+                /
+              </span>
+            ) : null}
+            <button
+              type="button"
+              onClick={() => runSuggestion(suggestion)}
+              className="font-mono text-[11px] text-muted-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:text-xs"
+            >
+              {suggestion}
+            </button>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
