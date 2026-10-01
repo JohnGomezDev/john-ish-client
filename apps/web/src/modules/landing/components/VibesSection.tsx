@@ -41,7 +41,7 @@ export function VibesSection(): React.JSX.Element {
 
         <motion.div
           {...playerCard}
-          className="border-t border-border pt-8 md:border-t-0 md:border-l md:pt-0 md:pl-8"
+          className="md:border-l md:pl-8"
         >
           <MusicPlayerCard />
         </motion.div>

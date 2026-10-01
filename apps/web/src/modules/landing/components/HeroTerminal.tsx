@@ -55,8 +55,16 @@ export function HeroTerminal(): React.JSX.Element {
   } = useHeroTerminal();
 
   return (
-    <div className="flex aspect-[4/3] w-full flex-col overflow-hidden rounded-2xl border border-border bg-surface sm:aspect-[5/4]">
-      <div className="flex shrink-0 items-center gap-2 border-b border-border bg-surface-elevated px-4 py-3">
+    <div className="relative flex aspect-[4/3] w-full flex-col overflow-hidden rounded-2xl border border-border bg-surface sm:aspect-[5/4]">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: 'radial-gradient(circle, #d6ff00 1px, transparent 1px)',
+          backgroundSize: '22px 22px',
+        }}
+        aria-hidden="true"
+      />
+      <div className="relative z-10 flex shrink-0 items-center gap-2 border-b border-border bg-surface-elevated px-4 py-3">
         <span className="size-2.5 rounded-full bg-accent/80" aria-hidden="true" />
         <span className="size-2.5 rounded-full bg-foreground/50" aria-hidden="true" />
         <span className="size-2.5 rounded-full bg-muted-foreground/80" aria-hidden="true" />
@@ -67,7 +75,7 @@ export function HeroTerminal(): React.JSX.Element {
 
       <div
         ref={scrollRef}
-        className="flex min-h-0 flex-1 cursor-text flex-col overflow-y-auto p-3 font-mono text-[11px] leading-5 sm:p-4 sm:text-xs sm:leading-6"
+        className="relative z-10 flex min-h-0 flex-1 cursor-text flex-col overflow-y-auto p-3 font-mono text-[11px] leading-5 sm:p-4 sm:text-xs sm:leading-6"
         onClick={focusInput}
       >
         <div className="flex flex-col gap-0.5">
@@ -100,7 +108,7 @@ export function HeroTerminal(): React.JSX.Element {
         </div>
       </div>
 
-      <ul className="flex shrink-0 flex-wrap items-center gap-y-1 border-t border-border px-3 py-2.5 sm:px-4">
+      <ul className="relative z-10 flex shrink-0 flex-wrap items-center gap-y-1 border-t border-border px-3 py-2.5 sm:px-4">
         {TERMINAL_SUGGESTIONS.map((suggestion, index) => (
           <li key={suggestion} className="flex items-center">
             {index > 0 ? (
