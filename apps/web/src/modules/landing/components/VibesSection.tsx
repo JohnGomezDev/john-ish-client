@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 
-import { SECTION_CLASS } from '@/modules/landing/constants/landing.constants';
+import { SectionFrame } from '@/modules/landing/components/SectionFrame';
 import { useScrollFadeUp } from '@/modules/landing/hooks/use-animations';
 
 import { MusicPlayerCard } from '@/modules/songs/components/MusicPlayerCard';
@@ -12,12 +12,15 @@ export function VibesSection(): React.JSX.Element {
   const playerCard = useScrollFadeUp(0.12);
 
   return (
-    <section id="vibes" aria-labelledby="vibes-heading" className={SECTION_CLASS}>
-      <div className="grid grid-cols-1 items-stretch gap-4 sm:gap-5 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] md:gap-6">
-        <motion.article
-          {...aboutCard}
-          className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-6 sm:gap-5 sm:p-8"
-        >
+    <SectionFrame
+      id="vibes"
+      index="03"
+      label="vibras"
+      ariaLabelledBy="vibes-heading"
+      density="regular"
+    >
+      <div className="grid grid-cols-1 items-stretch gap-8 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] md:gap-0">
+        <motion.article {...aboutCard} className="flex flex-col gap-4 sm:gap-5 md:pr-8">
           <h2
             id="vibes-heading"
             className="font-display text-xl font-medium tracking-tight text-foreground sm:text-2xl"
@@ -36,10 +39,13 @@ export function VibesSection(): React.JSX.Element {
           </div>
         </motion.article>
 
-        <motion.div {...playerCard} className="h-full">
+        <motion.div
+          {...playerCard}
+          className="border-t border-border pt-8 md:border-t-0 md:border-l md:pt-0 md:pl-8"
+        >
           <MusicPlayerCard />
         </motion.div>
       </div>
-    </section>
+    </SectionFrame>
   );
 }
