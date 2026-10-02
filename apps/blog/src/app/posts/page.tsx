@@ -15,50 +15,34 @@ import { PostsListContainer } from '@/modules/posts/components/PostsListContaine
 import { PostsListSkeleton } from '@/modules/posts/components/PostsListSkeleton';
 import { postKeys } from '@/modules/posts/constants/posts.query-keys';
 import { fetchPosts } from '@/modules/posts/services/posts.service';
-import { parsePostsListSearchParams } from '@/modules/posts/utils/posts-url.utils';
 
-interface IPostsPageProps {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}
+const DEFAULT_POSTS_PARAMS = { page: 1 } as const;
 
-export async function generateMetadata({
-  searchParams,
-}: IPostsPageProps): Promise<Metadata> {
-  const params = parsePostsListSearchParams(await searchParams);
+export async function generateMetadata(): Promise<Metadata> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
   const postsUrl = `${siteUrl}${ROUTES.home}`;
 
-  const isSearching = Boolean(params.search);
-
   return {
-    title: isSearching
-      ? `Resultados para "${params.search}"`
-      : 'Todos los artículos',
-    description: isSearching
-      ? `Artículos de ${SITE_FULL_NAME} que coinciden con la búsqueda "${params.search}". Desarrollo de software, arquitecturas y buenas prácticas.`
-      : 'Explora todos los artículos sobre arquitectura de software, Next.js, TypeScript y el oficio de construir software que dure.',
+    title: 'Todos los artículos',
+    description:
+      'Explora todos los artículos sobre arquitectura de software, Next.js, TypeScript y el oficio de construir software que dure.',
     alternates: {
       canonical: postsUrl,
     },
-    robots: isSearching
-      ? { index: false, follow: true }
-      : { index: true, follow: true },
+    robots: { index: true, follow: true },
   };
 }
 
-export default async function PostsPage({
-  searchParams,
-}: IPostsPageProps): Promise<React.JSX.Element> {
+export default async function PostsPage(): Promise<React.JSX.Element> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
   const postsUrl = `${siteUrl}${ROUTES.home}`;
-  const params = parsePostsListSearchParams(await searchParams);
   const queryClient = getQueryClient();
 
   await Promise.all([
     queryClient
       .query({
-        queryKey: postKeys.list(params),
-        queryFn: () => fetchPosts(params),
+        queryKey: postKeys.list(DEFAULT_POSTS_PARAMS),
+        queryFn: () => fetchPosts(DEFAULT_POSTS_PARAMS),
       })
       .catch(noop),
     queryClient
