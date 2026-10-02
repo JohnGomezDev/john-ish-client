@@ -5,15 +5,17 @@ import { PRIVACY_POLICY_LAST_UPDATED_ISO } from '@/modules/legal/constants/priva
 import { TERMS_OF_USE_LAST_UPDATED_ISO } from '@/modules/legal/constants/terms-of-use.constants';
 import { fetchPosts } from '@/modules/posts/services/posts.service';
 
+const SITEMAP_REVALIDATE_SECONDS = 86400;
+
 export const revalidate = 86400;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
 
-  const first = await fetchPosts({ page: 1, limit: 30 });
+  const first = await fetchPosts({ page: 1, limit: 30 }, SITEMAP_REVALIDATE_SECONDS);
   const remaining = await Promise.all(
     Array.from({ length: first.meta.totalPages - 1 }, (_, i) =>
-      fetchPosts({ page: i + 2, limit: 30 }),
+      fetchPosts({ page: i + 2, limit: 30 }, SITEMAP_REVALIDATE_SECONDS),
     ),
   );
   const allPosts = [first, ...remaining].flatMap((response) => response.items);
