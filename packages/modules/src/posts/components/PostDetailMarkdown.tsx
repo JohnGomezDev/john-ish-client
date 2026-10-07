@@ -3,6 +3,15 @@
 import 'highlight.js/styles/gml.css';
 import '../styles/post-detail-markdown.css';
 
+import css from 'highlight.js/lib/languages/css';
+import javascript from 'highlight.js/lib/languages/javascript';
+import json from 'highlight.js/lib/languages/json';
+import markdown from 'highlight.js/lib/languages/markdown';
+import php from 'highlight.js/lib/languages/php';
+import python from 'highlight.js/lib/languages/python';
+import sql from 'highlight.js/lib/languages/sql';
+import typescript from 'highlight.js/lib/languages/typescript';
+import xml from 'highlight.js/lib/languages/xml';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
@@ -18,7 +27,19 @@ interface IPostDetailMarkdownProps {
   content: string;
 }
 
+/** Mirrors the languages available in the admin MDX editor. */
 const rehypeHighlightOptions = {
+  languages: {
+    css,
+    javascript,
+    json,
+    markdown,
+    php,
+    python,
+    sql,
+    typescript,
+    xml,
+  },
   aliases: {
     javascript: ['js', 'jsx'],
     markdown: 'md',
