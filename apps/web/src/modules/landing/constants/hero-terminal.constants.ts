@@ -175,7 +175,7 @@ const funCommands: ITerminalCommand[] = [
         { text: 'GPU:      imaginación (integrada)', tone: 'muted' },
         { text: 'Memoria:  16GB RAM + pestañas infinitas', tone: 'muted' },
         { text: 'Shell:    zsh + vibes', tone: 'muted' },
-        { text: 'Mascotas: Lucero, Tinto y Brandy (equipo de QA)', tone: 'sky' },
+        { text: 'Mascotas: Lucero, Tinto, Panarabbit y Brandy (equipo de QA)', tone: 'sky' },
         { text: 'Uptime:   desde el último “arreglo rápido”', tone: 'amber' },
       ]),
   },
